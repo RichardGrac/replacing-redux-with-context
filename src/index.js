@@ -6,11 +6,14 @@ import ProductsProvider from './context/products-context'
 import './index.css';
 import App from './App';
 
+import ConfigureStore from './hooks-store/products-store'
+
+// Not need to Wrap any component
+ConfigureStore()
+
 ReactDOM.render(
-  <ProductsProvider>
     <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </ProductsProvider>,
+        <App />
+    </BrowserRouter>,
   document.getElementById('root')
 );
