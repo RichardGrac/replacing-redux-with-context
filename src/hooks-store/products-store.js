@@ -42,6 +42,7 @@ const configureStore = () => {
         }
     ]
 
+    // For this portion of State, merge it into Global State (store.js)
     initStore(actions, {products})
 }
 

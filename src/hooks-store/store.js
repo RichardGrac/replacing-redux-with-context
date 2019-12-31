@@ -4,25 +4,28 @@ let globalState = {}
 let listeners = []
 let actions = {}
 
-export const useStore = () => {
+export const useStore = (shouldListen = true) => {
     const setState = useState(globalState)[1]
 
     const dispatch = (actionIdentifier, payload) => {
+        // Updating portion of global state
         const newState = actions[actionIdentifier](globalState, payload)
         globalState = {...globalState, ...newState}
-    }
 
-    for (const listener of listeners) {
-        listener(globalState)
+        // Passing new global state to each component using store.js
+        for (const listener of listeners) {
+            listener(globalState)
+        }
     }
 
     useEffect(() => {
         // A listener will be registered each time a new instance is created
-        listeners.push(setState)
+        if (shouldListen) listeners.push(setState)
 
         return () => {
             // Listener will be removed when a component is unmounted
-            listeners = listeners.filter(li => li !== setState)
+            if (shouldListen)
+                listeners = listeners.filter(li => li !== setState)
         }
         // This scope will run just once, as React guarantees that setState is not going to change
     }, [setState])

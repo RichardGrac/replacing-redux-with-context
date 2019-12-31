@@ -3,8 +3,8 @@ import Card from '../UI/Card';
 import './ProductItem.css'
 import {useStore} from '../../hooks-store/store'
 
-const ProductItem = props => {
-    const dispatch = useStore()[1]
+const ProductItem = React.memo(props => {
+    const dispatch = useStore(false)[1]
 
     return (
         <Card style={{marginBottom: '1rem'}}>
@@ -20,6 +20,6 @@ const ProductItem = props => {
             </div>
         </Card>
     );
-};
+})
 
 export default ProductItem;
